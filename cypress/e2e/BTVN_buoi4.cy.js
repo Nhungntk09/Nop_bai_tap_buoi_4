@@ -96,31 +96,31 @@ describe('Bai tap buoi 4', () => {
     cy.get('#js-alert').click();
   });
 
-//  it('Thực hiện thao tác Alert', () => {
-//        cy.visit('https://practice.expandtesting.com/js-dialogs');
-//   cy.on("window:confirm", (text) => {
-//       expect(text).to.contain("I am a Js Confirm"); 
-//       return false;
-//     });
-//    cy.contains('Click for JS Confirm').click();
-//   cy.get('#result').should('have.text', 'You clicked: Cancel');
-// });
-it('Geolocation - Check City is displayed', () => {
-  cy.visit('https://practice.expandtesting.com/geolocation', {
-    onBeforeLoad(win) {
-      cy.stub(win.navigator.geolocation, 'getCurrentPosition')
-        .callsFake((cb) => {
-          cb({
-            coords: {
-              latitude: 21.0278,   
-              longitude: 105.8342
-            }
+  //  it('Thực hiện thao tác Alert', () => {
+  //        cy.visit('https://practice.expandtesting.com/js-dialogs');
+  //   cy.on("window:confirm", (text) => {
+  //       expect(text).to.contain("I am a Js Confirm"); 
+  //       return false;
+  //     });
+  //    cy.contains('Click for JS Confirm').click();
+  //   cy.get('#result').should('have.text', 'You clicked: Cancel');
+  // });
+  it('Geolocation - Check City is displayed', () => {
+    cy.visit('https://practice.expandtesting.com/geolocation', {
+      onBeforeLoad(win) {
+        cy.stub(win.navigator.geolocation, 'getCurrentPosition')
+          .callsFake((cb) => {
+            cb({
+              coords: {
+                latitude: 21.0278,
+                longitude: 105.8342
+              }
+            });
           });
-        });
-    }
+      }
+    });
+    cy.get('#geoBtn').click();
+    cy.get('#city-name').should('be.visible').and('not.be.empty');
   });
-  cy.get('#geoBtn').click();
-  cy.get('#city-name').should('be.visible').and('not.be.empty');
-});
 
 });
